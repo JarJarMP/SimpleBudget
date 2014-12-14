@@ -1,0 +1,16 @@
+{
+  "name": "SimpleBudget",
+  "version": "1.0.0",
+  "homepage": "https://github.com/JarJarMP/SimpleBudget",
+  "authors": [
+    "Péter Maróti"
+  ],
+  "description": "A simple budget manager application",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "Chart.js": "~0.2.0",
+    "jstree": "~3.0.8",
+    "jquery-number": "~2.1.5"
+  }
+}
