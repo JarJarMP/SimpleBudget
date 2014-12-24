@@ -1,5 +1,7 @@
+/.sass-cache/*
 /bootstrap/compiled.php
 /public/lib/*
+/public/css/*
 /vendor
 composer.phar
 .env.*.php

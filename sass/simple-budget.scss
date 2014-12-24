@@ -1,0 +1,25 @@
+// Header
+.page-header{
+	a,
+	a:visited,
+	a:active,
+	a:hover,
+	a:link{
+		text-decoration: none;
+		color: inherit;
+	}
+}
+
+// Login page
+.login-form{
+	h3{
+		margin-bottom: 18px;
+	}
+
+	.login-errors{
+		.bg-danger{
+			padding: 8px 11px;
+			font-weight: bold;
+		}
+	}
+}
