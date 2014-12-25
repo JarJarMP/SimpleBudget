@@ -3,6 +3,12 @@
 // Homepage
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'))->before('auth');
 
+// Homepage content menu
+Route::get('/expenses', array('as' => 'expenses', 'uses' => 'HomeController@getIndex'))->before('auth');
+Route::get('/incomes', array('as' => 'incomes', 'uses' => 'HomeController@getIndex'))->before('auth');
+Route::get('/charts', array('as' => 'charts', 'uses' => 'HomeController@getIndex'))->before('auth');
+Route::get('/categories', array('as' => 'categories', 'uses' => 'HomeController@getIndex'))->before('auth');
+
 // Login
 Route::get('/login', array('as' => 'login', 'uses' => 'AuthController@getLogin'))->before('guest');
 Route::post('login', array('uses' => 'AuthController@postLogin'))->before('csrf');

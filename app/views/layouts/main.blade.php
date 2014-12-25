@@ -13,6 +13,8 @@
 <body>
 	<div class="container">
 		@yield('content')
+
+		{{ View::make('partials.footer') }}
 	</div>
 </body>
 </html>
