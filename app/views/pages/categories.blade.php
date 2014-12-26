@@ -12,14 +12,17 @@
 
 				<div class="panel-body">
 					<div id="expense_tree">
-						<ul>
-							<li class="jstree-open">Expenses
-								<ul>
-									<li class="jstree-open">Cat 1</li>
-									<li class="jstree-open">Cat 2</li>
-								</ul>
-							</li>
-						</ul>
+						<div class="progress">
+  							<div 
+  								class="progress-bar progress-bar-striped active" 
+  								role="progressbar" 
+  								aria-valuenow="100" 
+  								aria-valuemin="0" 
+  								aria-valuemax="100" 
+  								style="width: 100%">
+    							<span class="sr-only">Categories are loading</span>
+  							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -33,14 +36,17 @@
 
 				<div class="panel-body">
 					<div id="income_tree">
-						<ul>
-							<li class="jstree-open">Incomes
-								<ul>
-									<li class="jstree-open">Cat 1</li>
-									<li class="jstree-open">Cat 2</li>
-								</ul>
-							</li>
-						</ul>
+						<div class="progress">
+  							<div 
+  								class="progress-bar progress-bar-striped active" 
+  								role="progressbar" 
+  								aria-valuenow="100" 
+  								aria-valuemin="0" 
+  								aria-valuemax="100" 
+  								style="width: 100%">
+    							<span class="sr-only">Categories are loading</span>
+  							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -49,17 +55,43 @@
 
 	<script type="text/javascript">
 		$(function () { 
-			$('#expense_tree, #income_tree').jstree({
-				'core' : {
-					'check_callback' : true
-				},
-				'types' : {
-					'default' : {
-						'icon' : 'glyphicon glyphicon-plus'
-					}
-				},
-				'plugins' : [ 'types', 'contextmenu', 'dnd', 'unique' ]
-			}); 
+			
+			function init_category_tree(category_type){
+				$.post(
+					"{{ route('categories') }}",
+					{'expense_or_income' : category_type},
+					function (data) {
+						var $category_tree = $('#' + category_type + '_tree');
+						$category_tree.empty();
+
+						if (typeof(data.result) != 'undefined' && typeof(data.result_msg) != 'undefined') {
+							if (data.result != false) {
+								$category_tree.jstree({ 
+									'core' : {
+										'data' : data.result,
+										'check_callback' : true
+									},
+									'types' : {
+										'default' : {
+											'icon' : false
+										}
+									},
+									'plugins' : [ 'types', 'contextmenu', 'dnd', 'unique' ]
+								});
+
+							} else {
+								$category_tree.html(data.result_msg);
+							}
+						} else {
+							$category_tree.html('AJAX request failed!');
+						}					
+					},
+					'json'
+				);
+			}
+			
+			init_category_tree('expense');
+			init_category_tree('income');
 		});
 	</script>
 @stop

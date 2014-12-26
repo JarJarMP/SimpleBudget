@@ -19,3 +19,6 @@ Route::get('/logout', array('as' => 'logout', 'uses' => 'AuthController@getLogou
 // Register
 Route::get('/register', array('as' => 'register', 'uses' => 'AuthController@getRegister'))->before('guest');
 Route::post('register', array('uses' => 'AuthController@postRegister'))->before('csrf');
+
+// Categories ajax
+Route::post('categories', array('uses' => 'CategoriesController@postIndex'))->before('auth');
