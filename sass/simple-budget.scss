@@ -119,3 +119,23 @@ $bootstrap_green: #DFF0D8;
 		}
 	}
 }
+
+// ----------------------------------
+// Categories page
+.categories-content{
+	.panel-heading{
+		font-weight: bold;
+	}
+
+	.panel-body{
+		overflow-x: auto;
+
+		.jstree-icon{
+			color: #333333;
+		}
+
+		a{
+			font-weight: bold;
+		}
+	}
+}
