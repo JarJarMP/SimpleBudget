@@ -4,8 +4,61 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "11f6ac739a68e8484f3a0dccac4d1341",
+    "hash": "85671b519c1d4936088a5caea0eede48",
     "packages": [
+        {
+            "name": "baum/baum",
+            "version": "1.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etrepat/baum.git",
+                "reference": "b868b70bde6e9abb48a4cd5c8244eea9cb4eec4e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etrepat/baum/zipball/b868b70bde6e9abb48a4cd5c8244eea9cb4eec4e",
+                "reference": "b868b70bde6e9abb48a4cd5c8244eea9cb4eec4e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "4.*|5.*",
+                "illuminate/database": "4.*|5.*",
+                "illuminate/filesystem": "4.*|5.*",
+                "illuminate/support": "4.*|5.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "d11wtq/boris": "~1.0",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Baum": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Estanislau Trepat",
+                    "email": "estanis@etrepat.com",
+                    "homepage": "http://etrepat.com"
+                }
+            ],
+            "description": "Baum is an implementation of the Nested Set pattern for Eloquent models.",
+            "keywords": [
+                "Laravel 4",
+                "database",
+                "eloquent",
+                "laravel",
+                "nested set"
+            ],
+            "time": "2014-09-30 17:04:36"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "1.0.2",
