@@ -20,5 +20,7 @@
 
 		{{ View::make('partials.footer') }}
 	</div>
+
+	@yield('page_specific_js')
 </body>
 </html>

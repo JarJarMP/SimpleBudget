@@ -12,14 +12,18 @@
 
 				<div class="panel-body">
 					<div id="expense_tree">
-						<ul>
-							<li class="jstree-open">Expenses
-								<ul>
-									<li class="jstree-open">Cat 1</li>
-									<li class="jstree-open">Cat 2</li>
-								</ul>
-							</li>
-						</ul>
+						<div class="progress">
+							<div 
+								class="progress-bar progress-bar-striped active" 
+								role="progressbar" 
+								aria-valuenow="100" 
+								aria-valuemin="0" 
+								aria-valuemax="100" 
+								style="width: 100%"
+							>
+								<span class="sr-only">Categories are loading</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -33,33 +37,25 @@
 
 				<div class="panel-body">
 					<div id="income_tree">
-						<ul>
-							<li class="jstree-open">Incomes
-								<ul>
-									<li class="jstree-open">Cat 1</li>
-									<li class="jstree-open">Cat 2</li>
-								</ul>
-							</li>
-						</ul>
+						<div class="progress">
+							<div 
+								class="progress-bar progress-bar-striped active" 
+								role="progressbar" 
+								aria-valuenow="100" 
+								aria-valuemin="0" 
+								aria-valuemax="100" 
+								style="width: 100%"
+							>
+								<span class="sr-only">Categories are loading</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+@stop
 
-	<script type="text/javascript">
-		$(function () { 
-			$('#expense_tree, #income_tree').jstree({
-				'core' : {
-					'check_callback' : true
-				},
-				'types' : {
-					'default' : {
-						'icon' : 'glyphicon glyphicon-plus'
-					}
-				},
-				'plugins' : [ 'types', 'contextmenu', 'dnd', 'unique' ]
-			}); 
-		});
-	</script>
+@section('page_specific_js')
+    {{ HTML::script('/js/category_page.js') }}
 @stop

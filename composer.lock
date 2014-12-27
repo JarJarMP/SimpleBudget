@@ -4,8 +4,61 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "11f6ac739a68e8484f3a0dccac4d1341",
+    "hash": "c867453ff221d640d2239a3a7808fddb",
     "packages": [
+        {
+            "name": "baum/baum",
+            "version": "1.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etrepat/baum.git",
+                "reference": "b868b70bde6e9abb48a4cd5c8244eea9cb4eec4e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etrepat/baum/zipball/b868b70bde6e9abb48a4cd5c8244eea9cb4eec4e",
+                "reference": "b868b70bde6e9abb48a4cd5c8244eea9cb4eec4e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "4.*|5.*",
+                "illuminate/database": "4.*|5.*",
+                "illuminate/filesystem": "4.*|5.*",
+                "illuminate/support": "4.*|5.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "d11wtq/boris": "~1.0",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Baum": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Estanislau Trepat",
+                    "email": "estanis@etrepat.com",
+                    "homepage": "http://etrepat.com"
+                }
+            ],
+            "description": "Baum is an implementation of the Nested Set pattern for Eloquent models.",
+            "keywords": [
+                "Laravel 4",
+                "database",
+                "eloquent",
+                "laravel",
+                "nested set"
+            ],
+            "time": "2014-09-30 17:04:36"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "1.0.2",
@@ -234,6 +287,50 @@
                 "tokenizer"
             ],
             "time": "2013-10-09 04:20:00"
+        },
+        {
+            "name": "laracasts/utilities",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracasts/PHP-Vars-To-Js-Transformer.git",
+                "reference": "cdcee80cdbe5673f61f59df30979546e4f7fadd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laracasts/PHP-Vars-To-Js-Transformer/zipball/cdcee80cdbe5673f61f59df30979546e4f7fadd6",
+                "reference": "cdcee80cdbe5673f61f59df30979546e4f7fadd6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Laracasts\\Utilities": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeffrey Way",
+                    "email": "jeffrey@laracasts.com"
+                }
+            ],
+            "description": "Transform your PHP to JavaScript",
+            "keywords": [
+                "javascript",
+                "laravel"
+            ],
+            "time": "2014-04-24 21:43:55"
         },
         {
             "name": "laravel/framework",
