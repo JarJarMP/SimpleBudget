@@ -22,3 +22,4 @@ Route::post('register', array('uses' => 'AuthController@postRegister'))->before(
 
 // Categories ajax
 Route::post('categories', array('uses' => 'CategoriesController@postIndex'))->before('auth');
+Route::post('/category_editor', array('as' => 'category_editor', 'uses' => 'CategoriesController@postIndex'))->before('auth');
