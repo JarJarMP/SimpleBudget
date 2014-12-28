@@ -15,6 +15,7 @@ $(function () {
 					if (typeof(data.result) != 'undefined' && typeof(data.result_msg) != 'undefined') {
 						if (data.result != false) {
 							$category_tree.jstree({ 
+								'plugins' : [ 'types', 'contextmenu', 'dnd', 'unique' ],
 								'core' : {
 									'data' : data.result,
 									'check_callback' : true
@@ -24,7 +25,32 @@ $(function () {
 										'icon' : false
 									}
 								},
-								'plugins' : [ 'types', 'contextmenu', 'dnd', 'unique' ]
+								'contextmenu' : {
+									'items' : function (node) {
+										var current_tree = $category_tree.jstree(true);
+										return {
+											'Create': {
+												'label': 'Create',
+												'action': function (obj) {
+													node = current_tree.create_node(node);
+													current_tree.edit(node);
+												}
+											},
+											'Rename': {
+												'label': 'Rename',
+												'action': function (obj) {
+													current_tree.edit(node);
+												}
+											},
+											'Delete': {
+												'label': 'Delete',
+												'action': function (obj) {
+													current_tree.delete_node(node);
+												}
+											}
+										};
+									}
+								}
 							});
 
 						} else {
@@ -32,7 +58,7 @@ $(function () {
 						}
 					} else {
 						$category_tree.html('AJAX request failed!');
-					}					
+					}
 				},
 				'json'
 			);
@@ -40,6 +66,7 @@ $(function () {
 			// Node action - create_node
 			$category_tree.on('create_node.jstree', function (e, data){
 				var post_data = default_post_data;
+				var $current_node = data.node;
 
 				post_data.node_action = 'create_node';
 				post_data.node_data = {
@@ -48,8 +75,10 @@ $(function () {
 					'position' : data.position
 				};
 
-				$.post(post_urls.category_edit, post_data);
-			})
+				$.post(post_urls.category_edit, post_data, function (data) {
+					$category_tree.jstree(true).set_id($current_node, data.result.new_id);
+				});
+			});
 
 			// Node action - rename_node
 			$category_tree.on('rename_node.jstree', function (e, data){
@@ -63,7 +92,7 @@ $(function () {
 				};
 
 				$.post(post_urls.category_edit, post_data);
-			})
+			});
 
 			// Node action - delete_node
 			$category_tree.on('delete_node.jstree', function (e, data){
@@ -76,7 +105,7 @@ $(function () {
 				};
 
 				$.post(post_urls.category_edit, post_data);
-			})
+			});
 
 			// Node action - move_node
 			$category_tree.on('move_node.jstree', function (e, data){
@@ -84,73 +113,15 @@ $(function () {
 
 				post_data.node_action = 'move_node';
 				post_data.node_data = {
-					'node' : data.node,
+					//'node' : data.node // dark magic... don't use the whole node object.. if you find the bug, I'll buy you a beer/chocolate
+					'node_id' : data.node.id,
 					'parent' : data.parent,
-					'position' : data.position,
-					'old_parent' : data.old_parent,
-					'old_position' : data.old_position,
-					'is_multi' : data.is_multi
-				};
-
-				$.post(post_urls.category_edit, post_data);
-			})
-
-			// Node action - copy_node
-			$category_tree.on('copy_node.jstree', function (e, data){
-				var post_data = default_post_data;
-
-				post_data.node_action = 'copy_node';
-				post_data.node_data = {
-					'node' : data.node,
-					'original' : data.original,
-					'parent' : data.parent,
-					'position' : data.position,
-					'old_parent' : data.old_parent,
-					'old_position' : data.old_position,
-					'is_multi' : data.is_multi
-				};
-
-				$.post(post_urls.category_edit, post_data);
-			})
-
-			// Node action - cut
-			$category_tree.on('cut.jstree', function (e, data){
-				var post_data = default_post_data;
-
-				post_data.node_action = 'cut';
-				post_data.node_data = {
-					'node' : data.node
-				};
-
-				$.post(post_urls.category_edit, post_data);
-			})
-
-			// Node action - copy
-			$category_tree.on('copy.jstree', function (e, data){
-				var post_data = default_post_data;
-
-				post_data.node_action = 'copy';
-				post_data.node_data = {
-					'node' : data.node
-				};
-
-				$.post(post_urls.category_edit, post_data);
-			})
-
-			// Node action - paste
-			$category_tree.on('paste.jstree', function (e, data){
-				var post_data = default_post_data;
-
-				post_data.node_action = 'paste';
-				post_data.node_data = {
-					'node' : data.node,
-					'parent' : data.parent,
-					'mode' : data.mode
+					'position' : data.position
 				};
 
 				$.post(post_urls.category_edit, post_data);
 			});
-		}		
+		}
 	}
 	
 	init_category_tree('expense');

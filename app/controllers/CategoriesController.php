@@ -2,6 +2,19 @@
 
 class CategoriesController extends BaseController
 {
+	private $category_model; // String - contains the ExpenseCategory or the IncomeCategory model name
+
+	private $root_names; // Array - contains the category root nodes names
+
+	public function __construct()
+	{
+		$this->category_model = '';
+		$this->root_names = array(
+			'expense' => 'Expenses',
+			'income' => 'Incomes',
+		);
+	}
+
 	public function getIndex()
 	{
 		JavaScript::put(array(
@@ -26,11 +39,11 @@ class CategoriesController extends BaseController
 		
 			// Page load - init both trees
 			if (empty($node_action)) {
-				$root = $this->getRootElement($category_type);
+				$root = $this->getCategoryRootElement($category_type);
 
 				if (empty($root)) {
-					$this->generateRootElement($category_type);
-					$root = $this->getRootElement($category_type);
+					$this->generateCategoryRootElement($category_type);
+					$root = $this->getCategoryRootElement($category_type);
 				}
 
 				$category_data = array();
@@ -53,9 +66,7 @@ class CategoriesController extends BaseController
 
 			// Handle node actions
 			} else {
-				Log::info('category_type: '.print_r($category_type, true));
-				Log::info('node_action: '.print_r($node_action, true));
-				Log::info('node_data: '.print_r($node_data, true));
+				$response = $this->handleNodeAction($category_type, $node_action, $node_data);
 			}
 			
 		} else {
@@ -68,51 +79,81 @@ class CategoriesController extends BaseController
 		return Response::json($response);
 	}
 
-	private function getRootElement($type)
+	private function getCategoryRootElement($type)
 	{
-		$result = null;
-
-		if (in_array($type, array('expense', 'income'))) {
-			switch ($type) {
-				case 'expense':
-					$result = ExpenseCategory::root();
-					break;
-
-				case 'income':
-					$result = IncomeCategory::root();
-					break;
-				
-				default:
-					$result = null;
-					break;
-			}
-		}
-
-		return $result;
+		$category_model = $this->getCategoryModelName($type);
+		return $category_model::root();
 	}
 
-	private function generateRootElement($type)
+	private function generateCategoryRootElement($type)
 	{
-		$root = null;
+		$category_model = $this->getCategoryModelName($type);
+		
+		$root = $category_model::create(array('name' => $this->root_names[$type]));
+		$root->makeRoot();
+		$root->parent_id = null;
+		$root->save();
+	}
 
-		switch ($type) {
+	private function getCategoryModelName($type)
+	{
+		$this->setCategoryObject($type);
+		return $this->category_model;
+	}
+
+	private function setCategoryObject($category_type)
+	{
+		switch ($category_type) {
 			case 'expense':
-				$root = ExpenseCategory::create(['name' => 'Expenses']);
+				$this->category_model = 'ExpenseCategory';
 				break;
 
 			case 'income':
-				$root = IncomeCategory::create(['name' => 'Incomes']);
+				$this->category_model = 'IncomeCategory';
 				break;
 			
 			default:
-				$root = null;
+				throw new Exception('Not existing category type! - CategoriesController/setCategoryObject');
 				break;
 		}
+	}
+
+	private function handleNodeAction($category_type, $node_action, $node_data)
+	{
+		$result = array();
+
+		$category_model = $this->getCategoryModelName($category_type);
+		$category_model_object = new $category_model;
+
+		switch ($node_action) {
+			case 'create_node':
+				$new_id = $category_model_object->createNode($node_data['node']['text'], $node_data['parent']);
+				$result = array(
+					'result' => array('new_id' => $new_id),
+					'result_msg' => 'Creating node was successfull',
+				);
+				break;
 		
-		if ($root !== null) {
-			$root->makeRoot();
-			$root->parent_id = null;
-			$root->save();
-		}		
+			case 'rename_node':
+				$category_model_object->renameNode($node_data['node']['id'], $node_data['text']);
+				break;
+
+			case 'delete_node':
+				$category_model_object->deleteNode($node_data['node']['id']);
+				break;
+
+			case 'move_node':
+				$category_model_object->moveNode($node_data['node_id'], $node_data['parent'], $node_data['position']);
+				break;
+				
+			default:
+				$result = array(
+					'result' => false,
+					'result_msg' => 'Not specified node action!',
+				);
+				break;
+		}
+
+		return $result;
 	}
 }
