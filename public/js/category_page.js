@@ -19,6 +19,12 @@ $(function () {
 								'core' : {
 									'data' : data.result,
 									'check_callback' : function (operation, node, node_parent, node_position, more) {
+										// Prevent moving node from one tree to the other
+										if (typeof(more) != 'undefined' && more && more.dnd && more.is_multi) { 
+											return false;
+										}
+
+										// Confirm before delete
 										if (operation == 'delete_node') {
 											var delete_msg = 'Do you want to delete the "' + node.text + '" category?';
 											if (!confirm(delete_msg)) {
