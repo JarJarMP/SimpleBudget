@@ -18,7 +18,14 @@ $(function () {
 								'plugins' : [ 'types', 'contextmenu', 'dnd', 'unique' ],
 								'core' : {
 									'data' : data.result,
-									'check_callback' : true
+									'check_callback' : function (operation, node, node_parent, node_position, more) {
+										if (operation == 'delete_node') {
+											var delete_msg = 'Do you want to delete the "' + node.text + '" category?';
+											if (!confirm(delete_msg)) {
+												return false;
+											}
+										}
+									}
 								},
 								'types' : {
 									'default' : {
