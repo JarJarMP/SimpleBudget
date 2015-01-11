@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="{{ URL::asset('lib/jquery/dist/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('lib/jstree/dist/jstree.min.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('lib/bootbox/bootbox.js') }}"></script>
 </head>
 <body>
 	<div class="container">
