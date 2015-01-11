@@ -31,8 +31,31 @@ $(function () {
 
 										// Confirm before delete
 										if (typeof(operation) != 'undefined' && operation == 'delete_node') {
-											var delete_msg = 'Do you want to delete the "' + node.text + '" category?';
-											if (!confirm(delete_msg)) {
+											if (typeof(node.marked_for_delete) != 'undefined' && node.marked_for_delete) {
+												return true;
+											} else {
+												bootbox.dialog({
+													'message': 'Do you want to delete the "' + node.text + '" category?',
+													'title': 'Confirm delete',
+													'buttons': {
+														'danger': {
+															'label': 'Delete',
+															'className': 'btn-danger',
+															'callback': function() {
+																node.marked_for_delete = true;
+																var current_tree = $category_tree.jstree(true);
+																current_tree.delete_node(node);
+															}
+														},
+														'success': {
+															'label': 'Keep it',
+															'className': 'btn-success',
+															'callback': function() {
+																//no operation
+															}
+														}
+													}
+												});
 												return false;
 											}
 										}
