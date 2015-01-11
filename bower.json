@@ -11,6 +11,7 @@
     "bootstrap": "~3.3.1",
     "Chart.js": "~0.2.0",
     "jstree": "~3.0.8",
-    "jquery-number": "~2.1.5"
+    "jquery-number": "~2.1.5",
+    "bootstrap-vertical-tabs": "~1.2.1"
   }
 }
