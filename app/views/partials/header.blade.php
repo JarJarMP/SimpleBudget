@@ -6,7 +6,7 @@
 					<h1><a href="{{ route('home') }}">Simple Budget</a></h1>
 				</div>
 				<div class="col-sm-4 top-section-icons">
-					<?php if (!empty($right_menu)) : ?>
+					@if (!empty($right_menu))
 						<ul class="clearfix text-right">
 							<li class="text-center">
 								<a class="hover-font-green" href="#" title="Export" data-action="export">
@@ -29,7 +29,7 @@
 								</a>
 							</li>
 						</ul>
-					<?php endif; ?>
+					@endif
 				</div>
 			</div>
 		</div>
