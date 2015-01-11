@@ -4,8 +4,8 @@
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'))->before('auth');
 
 // Homepage content menu
-Route::get('/expenses', array('as' => 'expenses', 'uses' => 'HomeController@getIndex'))->before('auth');
-Route::get('/incomes', array('as' => 'incomes', 'uses' => 'HomeController@getIndex'))->before('auth');
+Route::get('/expenses', array('as' => 'expenses', 'uses' => 'ExpenseController@getIndex'))->before('auth');
+Route::get('/incomes', array('as' => 'incomes', 'uses' => 'IncomeController@getIndex'))->before('auth');
 Route::get('/charts', array('as' => 'charts', 'uses' => 'HomeController@getIndex'))->before('auth');
 Route::get('/categories', array('as' => 'categories', 'uses' => 'CategoriesController@getIndex'))->before('auth');
 
